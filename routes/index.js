@@ -13,4 +13,8 @@ router.get('/', function(req, res) {
 router.get('/quizzes/question', quizController.question);
 router.get('/quizzes/answer', quizController.answer);
 
+router.get('/author', function(req, res) {
+   res.render('author', { title: 'Julio Hernando | Quiz 2015' });
+});
+
 module.exports = router;
