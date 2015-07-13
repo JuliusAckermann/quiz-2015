@@ -9,9 +9,15 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz 2015' });
 });
 
-// GET para preguntas y respuestas
-router.get('/quizzes/question', quizController.question);
-router.get('/quizzes/answer', quizController.answer);
+// Rutas de /quizzes
+// GET para preguntas y respuestas. La solicitud /quizzes nos llevará a una
+// página donde se encontrará la lista de preguntas presentes en la base de
+// datos; la segunda solicitud nos llevaŕá a la pregunta cuyo identificador
+// hemos especificado, y la tercera (/answer) nos llevará a la página que
+// indica si la respuesta es correcta o no
+router.get('/quizzes/question',                 quizController.question);
+// router.get('/quizzes/:quizId(\\d+)',         quizController.show);
+router.get('/quizzes/answer',                   quizController.answer);
 
 router.get('/author', function(req, res) {
    res.render('author', { title: 'Julio Hernando | Quiz 2015' });
