@@ -15,9 +15,9 @@ router.get('/', function(req, res) {
 // datos; la segunda solicitud nos llevaŕá a la pregunta cuyo identificador
 // hemos especificado, y la tercera (/answer) nos llevará a la página que
 // indica si la respuesta es correcta o no
-router.get('/quizzes/question',                 quizController.question);
-// router.get('/quizzes/:quizId(\\d+)',         quizController.show);
-router.get('/quizzes/answer',                   quizController.answer);
+router.get('/quizzes',                      quizController.index);
+router.get('/quizzes/:quizId(\\d+)',        quizController.show);
+router.get('/quizzes/:quizId(\\d+)/answer', quizController.answer);
 
 router.get('/author', function(req, res) {
    res.render('author', { title: 'Julio Hernando | Quiz 2015' });
