@@ -40,6 +40,18 @@ sequelize.sync().then(function() {
         });
         Quiz.create({ pregunta: '¿Cuál es la capital de Italia?',
           respuesta: 'Roma'
+        });
+        Quiz.create({ pregunta: '¿Cuál es la capital de Bélgica?',
+          respuesta: 'Bruselas'
+        });
+        Quiz.create({ pregunta: '¿Cuál es la capital de Somalia?',
+          respuesta: 'Mogadiscio'
+        });
+        Quiz.create({ pregunta: '¿Cuál es la capital de Japón',
+          respuesta: 'Tokio'
+        });
+        Quiz.create({ pregunta: '¿Cuál es la capital de Azerbaiyán?',
+          respuesta: 'Bakú'
         }).then(function() { console.log('Base de datos inicializada'); });
       };
    });
