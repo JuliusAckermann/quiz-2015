@@ -16,6 +16,7 @@ exports.load = function (req, res, next, quizId) {
 exports.index = function (req, res) {
   // Convierte la cadena de la búsqueda en una que pueda leerse en un url
   var search = ("%"  + (req.query.search || "") + "%").replace(' ', "%");
+<<<<<<< HEAD
   models.Quiz.findAll({ where: ["pregunta like ?", search],
                         order: 'pregunta ASC'}).then(
     function (quizzes) {
@@ -24,6 +25,14 @@ exports.index = function (req, res) {
         quizzes: /*(req.query.search) ? quizzes.sort(function(a, b) {
           return a.pregunta > b.pregunta;
         }) : */quizzes, errors: []
+  models.Quiz.findAll({ where: ["pregunta like ?", search],
+                        order: 'pregunta ASC'}).then(
+    function (quizzes) {
+      res.render('quizzes/index.ejs', {
+        // Si se ha realizado una búsqueda, devuelve una lista ordenada
+        quizzes: (req.query.search) ? quizzes.sort(function(a, b) {
+          return a.pregunta > b.pregunta;
+        }) : quizzes, errors: []
       });
     }
   ).catch(function(error) { next(error); } );
