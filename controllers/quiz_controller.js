@@ -20,13 +20,10 @@ exports.index = function (req, res) {
                         order: 'pregunta ASC'}).then(
     function (quizzes) {
       res.render('quizzes/index.ejs', {
-        // Si se ha realizado una búsqueda, devuelve una lista ordenada
-        quizzes: /*(req.query.search) ? quizzes.sort(function(a, b) {
-          return a.pregunta > b.pregunta;
-        }) : */quizzes, errors: []
+        quizzes: quizzes, errors: []
       });
     }
-  ).catch(function(error) { next(error); } );
+  ).catch(function (error) { next(error); });
 };
 
 // Petición GET a /quizzes/:id
