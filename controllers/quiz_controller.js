@@ -10,7 +10,7 @@ exports.load = function (req, res, next, quizId) {
       } else { next(new Error('No existe quizId=' +  quizId)); }
     }
   ).catch(function(error) { next(error); });
-}
+};
 
 // Petición GET a /quizzes (index)
 exports.index = function (req, res) {
@@ -27,6 +27,24 @@ exports.index = function (req, res) {
       });
     }
   ).catch(function (error) { next(error); });
+};
+
+// GET /quizzes/new
+exports.new = function (req, res) {
+  var quiz = models.Quiz.build( // crear un objeto quiz
+    { pregunta: "Pregunta", respuesta: "Respuesta" }
+  );
+  res.render('quizzes/new', { quiz: quiz });
+};
+
+// Petición POST a /quizzes/create
+exports.create = function (req, res) {
+  var quiz = models.Quiz.build(req.body.quiz);
+
+  // Se guarda en la DB los campos pregunta y respuesta de quiz
+  quiz.save({fields: ["pregunta", "respuesta"]}).then(function () {
+    res.redirect('/quizzes');
+  }); // Redireccion HTTP (URL relativo) a la lista de preguntas
 };
 
 // Petición GET a /quizzes/:id

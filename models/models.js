@@ -56,3 +56,8 @@ sequelize.sync().then(function() {
       };
    });
 });
+
+// Inicializar DB con tabla vacía
+/*sequelize.sync().then(function () {
+  console.log('Base de datos inicializada');
+}); */
