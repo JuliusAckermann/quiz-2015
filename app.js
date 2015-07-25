@@ -4,12 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 // Gestión de las rutas web del proyecto
 var routes = require('./routes/index');
-
 // Gestión de marcos para renderizado de las páginas
 var partials = require('express-partials');
+// Gestión de sobrecarga de métodos HTTP (PUT; DELETE)
+var methodOverride = require('method-override');
 
 var app = express();
 
@@ -23,10 +23,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Importar los marcos para renderizado
+// Usar los marcos para renderizado
 app.use(partials());
+// Usar la sobrecarga de métodos
+app.use(methodOverride('_method'));  
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
