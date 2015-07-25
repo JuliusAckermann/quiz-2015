@@ -19,12 +19,8 @@ exports.index = function (req, res) {
   models.Quiz.findAll({ where: ["pregunta like ?", search],
                         order: 'pregunta ASC'}).then(
     function (quizzes) {
-      res.render('quizzes/index.ejs', {
-        // Si se ha realizado una búsqueda, devuelve una lista ordenada
-        quizzes: (req.query.search) ? quizzes.sort(function(a, b) {
-          return a.pregunta > b.pregunta;
-        }) : quizzes, errors: []
-      });
+      res.render('quizzes/index.ejs', { quizzes: quizzes }
+      );
     }
   ).catch(function (error) { next(error); });
 };
@@ -32,7 +28,7 @@ exports.index = function (req, res) {
 // GET /quizzes/new
 exports.new = function (req, res) {
   var quiz = models.Quiz.build( // crear un objeto quiz
-    { pregunta: "Pregunta", respuesta: "Respuesta" }
+    { pregunta: "", respuesta: "" }
   );
   res.render('quizzes/new', { quiz: quiz });
 };
