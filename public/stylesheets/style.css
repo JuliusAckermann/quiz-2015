@@ -20,6 +20,10 @@ header, nav, section { background: #CEF6CE; text-align: center; }
 footer { background: #CEF6CE; text-align: center; }
 nav span { margin: 0px 10px 0px 0px; }
 
+#error-msg {
+  color: orange; font-size: smaller;
+}
+
 a {
   color: #00B7FF;
 }

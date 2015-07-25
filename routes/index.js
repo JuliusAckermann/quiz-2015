@@ -6,7 +6,7 @@ var quizController = require('../controllers/quiz_controller.js');
 
 // GET para la página de inicio del proyecto
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Quiz 2015' });
+  res.render('index', { title: 'Quiz 2015', errors: [] });
 });
 
 // Autoload de comandos con :quizId
@@ -21,7 +21,7 @@ router.post('/quizzes/create',              quizController.create);
 
 // GET /author
 router.get('/author', function(req, res) {
-   res.render('author', { title: 'Julio Hernando | Quiz 2015' });
+   res.render('author', { title: 'Julio Hernando | Quiz 2015', errors: [] });
 });
 
 module.exports = router;

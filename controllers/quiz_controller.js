@@ -19,7 +19,7 @@ exports.index = function (req, res) {
   models.Quiz.findAll({ where: ["pregunta like ?", search],
                         order: 'pregunta ASC'}).then(
     function (quizzes) {
-      res.render('quizzes/index.ejs', { quizzes: quizzes }
+      res.render('quizzes/index.ejs', { quizzes: quizzes, errors: [] }
       );
     }
   ).catch(function (error) { next(error); });
@@ -30,22 +30,31 @@ exports.new = function (req, res) {
   var quiz = models.Quiz.build( // crear un objeto quiz
     { pregunta: "", respuesta: "" }
   );
-  res.render('quizzes/new', { quiz: quiz });
+  res.render('quizzes/new', { quiz: quiz, errors: [] });
 };
 
 // Petición POST a /quizzes/create
 exports.create = function (req, res) {
   var quiz = models.Quiz.build(req.body.quiz);
 
-  // Se guarda en la DB los campos pregunta y respuesta de quiz
-  quiz.save({fields: ["pregunta", "respuesta"]}).then(function () {
-    res.redirect('/quizzes');
-  }); // Redireccion HTTP (URL relativo) a la lista de preguntas
+  quiz.validate()
+  .then(
+    function (err) {
+      if (err) {
+        res.render('quizzes/new', {quiz: quiz, errors: err.errors});
+      } else {
+        // save: guarda en la DB los campos pregunta y respuesta de quiz
+        quiz.save({fields: ["pregunta", "respuesta"]})
+        .then( function () { res.redirect('/quizzes'); });
+        // res.redirect: Redireccion HTTP (URL relativo) a la lista de preguntas
+      }
+    }
+  );
 };
 
 // Petición GET a /quizzes/:id
 exports.show = function(req, res) {
-   res.render('quizzes/show', { quiz: req.quiz });
+   res.render('quizzes/show', { quiz: req.quiz, errors: [] });
 };
 
 // Petición GET a /quizzes/:id/answer
@@ -54,5 +63,8 @@ exports.answer = function(req, res) {
     if(req.query.respuesta === req.quiz.respuesta) {
       resultado = 'correcta';
     }
-    res.render('quizzes/answer', { quiz: req.quiz, respuesta: 'Respuesta ' + resultado });
+    res.render('quizzes/answer', {  quiz: req.quiz,
+                                    respuesta: 'Respuesta ' + resultado,
+                                    errors: []
+  });
 };
