@@ -24,6 +24,8 @@ nav span { margin: 0px 10px 0px 0px; }
   color: orange; font-size: smaller;
 }
 
+.tema { text-transform: capitalize; }
+
 a {
   color: #00B7FF;
 }
