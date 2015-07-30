@@ -10,6 +10,8 @@ var routes = require('./routes/index');
 var partials = require('express-partials');
 // Gestión de sobrecarga de métodos HTTP (PUT; DELETE)
 var methodOverride = require('method-override');
+// Gestión de sesión de usuario
+var session = require('express-session');
 
 var app = express();
 
@@ -22,12 +24,24 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('Quiz 2015'));
+app.use(session());
 // Usar los marcos para renderizado
 app.use(partials());
 // Usar la sobrecarga de métodos
-app.use(methodOverride('_method'));  
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Helpers dinámicos para inicio de sesión
+app.use(function (req, res, next) {
+  // Guardar path en session.redir para poder usarla una vez hecho el login
+  if (!req.path.match(/\/login|\/logout/)) {
+    req.session.redir = req.path;
+  }
+  // Hacer visible req.session en las visitas
+  res.locals.session = req.session;
+  next();
+});
 
 app.use('/', routes);
 
