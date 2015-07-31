@@ -10,16 +10,20 @@
         <span class="tema"><%= quizzes[i].tema %></span>
       </td>
       <td><a href="quizzes/<%= quizzes[i].id %>"><%= quizzes[i].pregunta %></a></td>
-      <td><a href="quizzes/<%= quizzes[i].id %>/edit"><button>Editar</button></a></td>
-      <td>
-        <form method="post" action="quizzes/<%= quizzes[i].id %>?_method=delete">
-          <button type="submit"
-            onclick="return confirm('¿Seguro que desea borrar la pregunta \'<%= quizzes[i].pregunta %>\'?');">
-            Borrar
-          </button>
-        </form>
-      </td>
+      <% if (session.user) { %>
+        <td><a href="quizzes/<%= quizzes[i].id %>/edit"><button>Editar</button></a></td>
+        <td>
+          <form method="post" action="quizzes/<%= quizzes[i].id %>?_method=delete">
+            <button type="submit"
+              onclick="return confirm('¿Seguro que desea borrar la pregunta \'<%= quizzes[i].pregunta %>\'?');">
+              Borrar
+            </button>
+          </form>
+        </td>
+      <% } %>
     </tr>
   <% } %>
 </table>
-<a href="/quizzes/new"><button type="button">Crear pregunta</button></a>
+<% if (session.user) { %>
+  <a href="/quizzes/new"><button type="button">Crear pregunta</button></a>
+<% } %>
