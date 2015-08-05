@@ -11,8 +11,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz 2015', errors: [] });
 });
 
-// Autoload de comandos con :quizId
+// Autoload de comandos
 router.param('quizId', quizController.load);
+router.param('commentId', commentController.load);
 
 // Rutas de sesión (/session)
 router.get('/login',    sessionController.new);
@@ -32,6 +33,8 @@ router.delete('/quizzes/:quizId(\\d+)',     sessionController.loginRequired,  qu
 // Rutas para comentarios (/comments)
 router.get('/quizzes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizzes/:quizId(\\d+)/comments',    commentController.create);
+router.get('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+                                            sessionController.loginRequired, commentController.publish);
 
 // GET /author
 router.get('/author', function(req, res) {
