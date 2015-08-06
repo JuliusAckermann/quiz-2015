@@ -57,3 +57,10 @@ exports.publish = function (req, res) {
     next(error);
   });
 };
+
+// DELETE /quizzes/:quizId/comments/:commentId
+exports.destroy = function (req, res) {
+  req.comment.destroy().then(
+    function () { res.redirect('/quizzes/' + req.params.quizId); }
+  ).catch( function (error) { next(error); });
+};

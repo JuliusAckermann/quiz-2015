@@ -33,8 +33,10 @@ router.delete('/quizzes/:quizId(\\d+)',     sessionController.loginRequired,  qu
 // Rutas para comentarios (/comments)
 router.get('/quizzes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizzes/:quizId(\\d+)/comments',    commentController.create);
-router.get('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
-                                            sessionController.loginRequired, commentController.publish);
+router.put('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)',
+                                            sessionController.loginRequired,  commentController.publish);
+router.delete('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)',
+                                            sessionController.loginRequired,  commentController.destroy);
 
 // GET /author
 router.get('/author', function(req, res) {

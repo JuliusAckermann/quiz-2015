@@ -37,7 +37,7 @@ exports.create = function (req, res) {
   });
 };
 
-// GET /logout
+// DELETE /login
 exports.destroy = function (req, res) {
   delete req.session.user;
   // Redirigir a PATH anterior a login

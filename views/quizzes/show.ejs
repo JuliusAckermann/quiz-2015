@@ -12,7 +12,14 @@
   <% if (quiz.Comments[index].publicado || session.user) { %>
     <p>- <%= quiz.Comments[index].texto %>
       <% if (session.user && !quiz.Comments[index].publicado) { %>
-        <a href="/quizzes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish"><button>Publicar</button></a>
+        <form action="/quizzes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>?_method=put" method="post">
+          <input type="submit"value="Publicar">
+        </form>
+      <% } %>
+      <% if (session.user) { %>
+        <form action="/quizzes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>?_method=delete" method="post">
+          <input type="submit" value="Eliminar">
+        </form>
       <% } %>
     </p>
   <% } %>
