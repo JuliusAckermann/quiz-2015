@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Helpers dinámicos para inicio de sesión
 app.use(function (req, res, next) {
   // Guardar path en session.redir para poder usarla una vez hecho el login
-  if (!req.path.match(/\/login|\/logout/)) {
+  if (req.method === 'GET' && !req.path.match(/\/login|\/logout/)) {
     req.session.redir = req.path;
   }
   // Hacer visible req.session en las visitas
