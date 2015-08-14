@@ -40,6 +40,22 @@ app.use(function (req, res, next) {
   }
   // Hacer visible req.session en las visitas
   res.locals.session = req.session;
+
+  // Algoritmo de Auto Logout
+  if (req.session.timeLogout) {
+    var now = Date.now();
+    var tiempo = now - req.session.timeLogout;
+    // Dos minutos = 120 segundos = 120000 milisegundos
+    if (tiempo > 120000) {
+      // Necesario para evitar bucle de redireccionamientos
+      delete req.session.timeLogout;
+      delete req.session.user;
+      req.session.autoLogout = true;
+      res.redirect('/login');
+    } else {
+      req.session.timeLogout = now;
+    }
+  }
   next();
 });
 

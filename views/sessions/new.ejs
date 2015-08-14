@@ -2,6 +2,10 @@
 
 <form method="post" action="/login">
 
+  <% if (session.autoLogout) { %>
+    <label class="sessionExpired">La sesión ha expirado. Por favor, vuelva
+    a iniciar sesión<br/></label>
+  <% } %>
   <div class="field">
     <label for="login">Login:</label>
     <input type="text" id="login" name="login" size="30"/>

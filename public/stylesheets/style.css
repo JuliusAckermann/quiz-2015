@@ -33,3 +33,8 @@ a {
 img {
    max-width: 953px;
 }
+
+.sessionExpired {
+  color: orange;
+  font-size: smaller;
+}
